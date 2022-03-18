@@ -1,3 +1,4 @@
+//prefix sum
 //You are given a non-negative integer sequence A = (a_0, a_1, ... , a_{N-1})A=(a0,a1,…,aN−1) with the length N.
 //Process the following Q queries in order:
 //You are given integers li and ri. Print sum from a_li to a_ri-1;
