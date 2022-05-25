@@ -1,36 +1,36 @@
 #include<iostream>
+#include<map>
 using namespace std;
 
-int p, q, r; unsigned long long int n, ans = 0;
-string s;
+int p, q, r; long long n, cur = 0; string s; bool b = false;
+map<pair<int, int>, long long> m;
 
-void search(int idx) {
+void search(int idx, int l) {
+    if(l > q || b) return;
     if(idx == r) {
-        int cur = 1; bool c = true;
-        for(int i=1; i<r; i++) {
-            if(s[i-1] == s[i])cur++;
-            else if(s[i-1]!=s[i] && cur > q) {
-                c = false; break;
-            } else cur = 1;
-        }
-        if(c && cur <= q) ans++;
-        if(ans == n) {
-            cout << s;
-            p = -1;
-            return;
+        cur++;
+        if(cur == n) {
+            cout << s; b = true; return;
         }
     } else {
+        if(m.count({idx, l}) && cur + m[{idx, l}] < n) {
+            cur+=m[{idx, l}];
+            return;
+        }
         for(int i=0; i<p; i++) {
             s[idx] = 'A' + i;
-            search(idx+1);
+            long long oldCur = cur;
+            auto key = make_pair(idx+1, ((idx == 0 || s[idx] == s[idx-1]) ? l+1 : 1));
+            search(key.first, key.second);
+            long long count = cur - oldCur;
+            m[key] = count;
         }
     }
 }
 
 int main() {
     cin >> p >> q >> r >> n;
-    string cur(r, ' ');
-    s = cur;
-    search(0);
+    string c(r, ' '); s = c;
+    search(0, 0);
     return 0;
 }
