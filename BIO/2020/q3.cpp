@@ -13,18 +13,18 @@ void search(int idx, int l) {
             cout << s; b = true; return;
         }
     } else {
-        if(m.count({idx, l}) && cur + m[{idx, l}] < n) {
-            cur+=m[{idx, l}];
+        auto key = make_pair(idx, l);
+        if(m.count(key) && cur + m[key] < n) {
+            cur+=m[key];
             return;
         }
+        long long oldCur = cur;
         for(int i=0; i<p; i++) {
             s[idx] = 'A' + i;
-            long long oldCur = cur;
-            auto key = make_pair(idx+1, ((idx == 0 || s[idx] == s[idx-1]) ? l+1 : 1));
-            search(key.first, key.second);
-            long long count = cur - oldCur;
-            m[key] = count;
+            search(idx+1, ((idx == 0 || s[idx] == s[idx-1]) ? l+1 : 1));
         }
+        long long count = cur - oldCur;
+        m[key] = count;
     }
 }
 
@@ -34,3 +34,4 @@ int main() {
     search(0, 0);
     return 0;
 }
+
