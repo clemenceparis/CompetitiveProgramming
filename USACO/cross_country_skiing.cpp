@@ -6,7 +6,7 @@
 using namespace std;
 
 vector<vector<int>> grid; vector<pair<int, int>> waystation;
-bool visited[500][500] = {false}; int n, m;
+vector<vector<bool>> visited; int n, m;
 
 void DFS(int r, int c, int p, int l) {
     if(p != -1 && (r < 0 || c < 0 || r == n || c == m || abs(p-grid[r][c]) > l || visited[r][c])) return;
@@ -18,7 +18,7 @@ void DFS(int r, int c, int p, int l) {
 }
 
 bool check(int l) {
-    for(int i=0; i<n; i++) for(int j=0; j<m; j++) visited[i][j] = false;
+    visited = vector<vector<bool>>(n, vector<bool>(m, false));
     DFS(waystation[0].first, waystation[0].second, -1, l);
     for(int i=0; i<waystation.size(); i++) {
         if(!visited[waystation[i].first][waystation[i].second]) return false;
