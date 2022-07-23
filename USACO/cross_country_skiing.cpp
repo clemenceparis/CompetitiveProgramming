@@ -9,7 +9,7 @@ vector<vector<int>> grid; vector<pair<int, int>> waystation;
 bool visited[500][500] = {false}; int n, m;
 
 void DFS(int r, int c, int p, int l) {
-    if(r < 0 || c < 0 || r == n || c == m || abs(p-grid[r][c]) > l || visited[r][c]) return;
+    if(p != -1 && (r < 0 || c < 0 || r == n || c == m || abs(p-grid[r][c]) > l || visited[r][c])) return;
     visited[r][c] = true;
     DFS(r-1, c, grid[r][c], l);
     DFS(r+1, c, grid[r][c], l);
@@ -19,7 +19,7 @@ void DFS(int r, int c, int p, int l) {
 
 bool check(int l) {
     for(int i=0; i<n; i++) for(int j=0; j<m; j++) visited[i][j] = false;
-    DFS(waystation[0].first, waystation[0].second, grid[waystation[0].first][waystation[0].second], l);
+    DFS(waystation[0].first, waystation[0].second, -1, l);
     for(int i=0; i<waystation.size(); i++) {
         if(!visited[waystation[i].first][waystation[i].second]) return false;
     }
