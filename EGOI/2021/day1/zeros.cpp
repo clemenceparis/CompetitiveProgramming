@@ -1,9 +1,10 @@
+Copy
 #include<iostream>
 using namespace std;
-
+ 
 long long a, b;
-
-long long multiplicity(int n) {
+ 
+long long expo(int n) {
     long long expon=n, ans=0;
     while(expon <= b) {
         long long cura = (a%expon == 0 ? a : a+expon-a%expon), curb = b-b%expon;
@@ -12,9 +13,8 @@ long long multiplicity(int n) {
     }
     return ans;
 }
-
+ 
 int main() {
     cin >> a >> b;
-    cout << min(multiplicity(2), multiplicity(5));
+    cout << min(expo(2), expo(5));
 }
-
